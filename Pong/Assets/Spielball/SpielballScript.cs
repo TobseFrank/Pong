@@ -12,8 +12,9 @@ public class SpielballScript : MonoBehaviour
     public float Geschwindigkeit;
     public float Beschleunigung;
 
-  
-    float aktuelleGeschwindigkeit = 0;
+    public bool nachRechts = true;
+
+    float aktuelleGeschwindigkeit =0;
     Vector3 richtung = Vector3.zero;
 
     void Start()
@@ -22,51 +23,44 @@ public class SpielballScript : MonoBehaviour
 
     void Update()
     {
-        if (EingabeÜberprüfen())
-        {
             if (aktuelleGeschwindigkeit < Geschwindigkeit)
             {
                 aktuelleGeschwindigkeit += Beschleunigung * Time.deltaTime;
             }
+            
+            BallBewegen();
             this.transform.position += richtung * aktuelleGeschwindigkeit * Time.deltaTime;
-        }
-        else
-        {
-            aktuelleGeschwindigkeit = 1f;
-        }
     }
 
-    private bool EingabeÜberprüfen()
+    private void BallBewegen()
     {
-        bool eingabe = false;
         float x = 0f;
         float z = 0f;
       
-      
-        // Input.GetKey gibt true zurück wenn
-        // die gefragte Taste gedrückt ist
-      
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (nachRechts)
         {
             x++;
-            eingabe = true;
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
+        else {
             x--;
-            eingabe = true;
-        }
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            z++;
-            eingabe = true;
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            z--;
-            eingabe = true;
         }
         richtung = new Vector3(x, 0f, z);
-        return eingabe;
+    }
+
+    public void RichtungWechseln()
+    {
+        if (nachRechts)
+        {
+            nachRechts = false;
+        } 
+        else {
+            nachRechts = true;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Eine Kollision");
+        RichtungWechseln();
     }
 }

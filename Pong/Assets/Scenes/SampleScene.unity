@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 823794660}
   - component: {fileID: 823794659}
   - component: {fileID: 823794663}
+  - component: {fileID: 823794664}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -342,7 +343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823794658}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -360,8 +361,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0208480b58366db43ad3ebf4ca5a1e0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Geschwindigkeit: 0
-  Beschleunigung: 0
+  Geschwindigkeit: 500
+  Beschleunigung: 0.5
+  nachRechts: 1
+--- !u!54 &823794664
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823794658}
+  serializedVersion: 2
+  m_Mass: 0.001
+  m_Drag: 0
+  m_AngularDrag: Infinity
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +475,7 @@ GameObject:
   - component: {fileID: 1110150724}
   - component: {fileID: 1110150723}
   - component: {fileID: 1110150722}
+  - component: {fileID: 1110150726}
   m_Layer: 0
   m_Name: Spieler 2
   m_TagString: Untagged
@@ -534,12 +553,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110150721}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.75, y: 0.5, z: 0}
+  m_LocalPosition: {x: 4.75, y: 0.5, z: 0.659}
   m_LocalScale: {x: 0.5, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1110150726
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110150721}
+  serializedVersion: 2
+  m_Mass: 10000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1328208331
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,6 +682,7 @@ GameObject:
   - component: {fileID: 1454995968}
   - component: {fileID: 1454995967}
   - component: {fileID: 1454995966}
+  - component: {fileID: 1454995970}
   m_Layer: 0
   m_Name: Spieler 1
   m_TagString: Untagged
@@ -730,6 +766,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1454995970
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454995965}
+  serializedVersion: 2
+  m_Mass: 10000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1873139662
 GameObject:
   m_ObjectHideFlags: 0

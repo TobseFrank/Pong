@@ -17,6 +17,7 @@ public class SpielballScript : MonoBehaviour
     public bool nachOben = false;
     public bool nachUnten = false;
 
+    bool gameLive;
     float aktuelleGeschwindigkeit;
     float aktuellerWinkel;
     int kollisionen;
@@ -24,10 +25,12 @@ public class SpielballScript : MonoBehaviour
 
     void Start()
     {
+        gameLive = true;
     }
 
     void Update()
     {
+        if (gameLive){
             if (aktuelleGeschwindigkeit < Geschwindigkeit)
             {
                 aktuelleGeschwindigkeit += Beschleunigung * Time.deltaTime;
@@ -35,6 +38,7 @@ public class SpielballScript : MonoBehaviour
             
             BallBewegen();
             this.transform.position += richtung * aktuelleGeschwindigkeit * Time.deltaTime;
+        }
     }
 
     void BallBewegen()
@@ -109,6 +113,14 @@ public class SpielballScript : MonoBehaviour
         if(otherObject.name == "Wand Oben"){
             nachOben = false;
             nachUnten = true;
+        }
+        if(otherObject.name == "Wand von Spieler 1"){
+            gameLive = false;
+            Debug.Log("Punkt für Spieler 2");
+        }
+        if(otherObject.name == "Wand von Spieler 2"){
+            gameLive = false;
+            Debug.Log("Punkt für Spieler 1");
         }
 
         //Debug.Log(contact.point);  //Postion auf dem Feld der Kollision

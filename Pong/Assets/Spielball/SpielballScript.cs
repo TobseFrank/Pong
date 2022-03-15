@@ -11,10 +11,13 @@ public class SpielballScript : MonoBehaviour
   
     public float Geschwindigkeit;
     public float Beschleunigung;
+    public float maximalerWinkel;
 
     public bool nachRechts = true;
 
-    float aktuelleGeschwindigkeit =0;
+    float aktuelleGeschwindigkeit;
+    float aktuellerWinkel;
+    int kollisionen;
     Vector3 richtung = Vector3.zero;
 
     void Start()
@@ -32,7 +35,7 @@ public class SpielballScript : MonoBehaviour
             this.transform.position += richtung * aktuelleGeschwindigkeit * Time.deltaTime;
     }
 
-    private void BallBewegen()
+    void BallBewegen()
     {
         float x = 0f;
         float z = 0f;
@@ -40,14 +43,19 @@ public class SpielballScript : MonoBehaviour
         if (nachRechts)
         {
             x++;
+            if(aktuellerWinkel== 45.0f){
+                z++;
+            } else if (aktuellerWinkel == -45.0f){
+                z--;
+            }
         }
         else {
             x--;
         }
         richtung = new Vector3(x, 0f, z);
-    }
+    } 
 
-    public void RichtungWechseln()
+    void RichtungWechseln()
     {
         if (nachRechts)
         {
@@ -58,9 +66,43 @@ public class SpielballScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Eine Kollision");
+        ContactPoint contact = collision.contacts[0];
+
+        GameObject otherObject = contact.otherCollider.gameObject;
+        
+        Vector3 otherObjectPoint = contact.otherCollider.attachedRigidbody.position;
+        Vector3 position = contact.point;
+
+        if (otherObject.name == "Spieler 1"){
+         kollisionen++;
+         Debug.Log("Kollisionsnummer"+ kollisionen
+         + "\nzwischen Ball und " + otherObject 
+         + "\n an Position:" + position 
+         + "\nSpieler war auf:" + otherObjectPoint);
+        aktuellerWinkel = KollisionsPunktMitSpielerBerechnen(position.z,otherObjectPoint.z);
+        }
+        
+        //Debug.Log(contact.point);  //Postion auf dem Feld der Kollision
+        //Debug.Log("An der Stelle: "+ contact.otherCollider.gameObject.transform.position);   //Postion auf dem Feld der Kollision
         RichtungWechseln();
+    }
+
+    float KollisionsPunktMitSpielerBerechnen(float zBall, float zSpieler){
+        float winkelBerechnungsPosition = zBall - zSpieler;
+        Debug.Log("Ball z position: " + zBall 
+        +"\n Spieler z position: " + zSpieler
+        +"\n Kollision des Balls auf: " + winkelBerechnungsPosition);
+
+        if (winkelBerechnungsPosition > 0.7f){
+            return +45.0f;
+        }
+        
+        if (winkelBerechnungsPosition < -0.7f){
+            return -45.0f;
+        } 
+
+        return 0.0f;
     }
 }
